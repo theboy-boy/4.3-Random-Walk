@@ -1,3 +1,4 @@
+import java.util.Random;
 public class RandomWalk {
     private int xCoord;
     private int yCoord;
@@ -19,13 +20,36 @@ public class RandomWalk {
     this.yCoord = startY;
     this.edge = edge;
     this.maxSteps = max;
-
     }
+    boolean moreSteps(){
+        if (this.stepsTaken<this.maxSteps){
+            return true;
+        }else
+        return false;
+    }
+
+    boolean inBounds(){
+        if (this.xCoord < this.edge && this.yCoord < this.edge){
+            return true;
+        }else
+        return false;
+    }
+
     public void takeStep(){
         this.stepsTaken ++;
-        this.xCoord+=Math.round(Math.random()*4);
-        this.yCoord+=Math.round(Math.random()*4);
+        Random ran = new Random();
+        this.xCoord+=ran.nextInt()%5;
+        Random rand = new Random();
+        this.yCoord+=rand.nextInt()%5;
     }
+    public void walk(){
+        while (moreSteps() && inBounds()){
+            takeStep();
+        }
 
+    }
+    public String toString() { 
+        return "x and y "+xCoord+yCoord;
+    }
 
 }
